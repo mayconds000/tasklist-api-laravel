@@ -10,7 +10,7 @@ class TaskController extends Controller
     public function get(Request $request)
     {
         $tasks = Task::all();
-        return response()->json(['data' => $tasks->toArray()]);
+        return response()->json($tasks->toArray());
     }
 
     public function store(Request $request)

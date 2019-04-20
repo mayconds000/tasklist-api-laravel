@@ -20,9 +20,11 @@ class TaskTest extends TestCase
     public function testGetAllTasks()
     {
         $response = $this->json('GET', self::BASE_URL);
+        // var_dump($response);
+        // die();
 
         $response->assertStatus(200)
-            ->assertJsonStructure(['data' => []]);
+            ->assertJsonStructure([]);
     }
 
     public function testUpdateTask()
