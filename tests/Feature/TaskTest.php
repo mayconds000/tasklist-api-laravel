@@ -14,7 +14,9 @@ class TaskTest extends TestCase
 
     protected function createTask()
     {
-        return Task::create(['title' => 'título da tarefa']);
+        
+        
+        return Task::create(['title' => 'título da tarefa'])->fresh();
     }
 
     public function testGetAllTasks()

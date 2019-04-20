@@ -14,4 +14,6 @@ class Task extends Model
     protected $fillable = [
         'title', 'status'
     ];
+
+    protected $hidden = [];
 }
