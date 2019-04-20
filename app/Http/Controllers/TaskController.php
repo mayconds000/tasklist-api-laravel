@@ -1,26 +1,28 @@
 <?php
 
-namespace App\Controllers;
+namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Task;
 
 class TaskController extends Controller
 {
     public function get(Request $request)
     {
-        return Task::withTrashed()->all();
+        $tasks = Task::all();
+        return response()->json(['data' => $tasks->toArray()]);
     }
 
     public function store(Request $request)
     {
         $task = Task::create($request->only(['title', 'status']));
-        return response()->json($task, 201);
+        return response()->json($task->toArray(), 201);
     }
 
     public function update(Request $request, Task $task)
     {
         $task->update($request->only(['title', 'status']));
-        return response()->json($task, 200);
+        return response()->json($task->toArray(), 200);
     }
 
     public function delete(Task $task)

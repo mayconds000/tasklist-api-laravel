@@ -8,23 +8,27 @@ use App\Models\Task;
 
 class TaskTest extends TestCase
 {
+    use RefreshDatabase;
+
+    const BASE_URL = '/api/tasks';
+
     protected function createTask()
     {
-        $task = Task::create(['title' => 'título da tarefa']);
+        return Task::create(['title' => 'título da tarefa']);
     }
 
-    public function getAllTasksTest()
+    public function testGetAllTasks()
     {
-        $response = $this->json('GET', '/tasks');
+        $response = $this->json('GET', self::BASE_URL);
 
         $response->assertStatus(200)
             ->assertJsonStructure(['data' => []]);
     }
 
-    public function updateTaskTest()
+    public function testUpdateTask()
     {   
         $task = $this->createTask();
-        $url = '/tasks/' . $task->id;
+        $url = self::BASE_URL . '/' . $task->id;
         $data = ['title' => 'Reunião as 14:00', 'status' => 'closed'];
         $response = $this->json('PATCH', $url, $data);
 
@@ -32,13 +36,13 @@ class TaskTest extends TestCase
             ->assertJson($data);
     }
 
-    public function deleteTaskTest()
+    public function testeDeleteTask()
     {
         $task = $this->createTask();
-        $url = '/tasks/' . $task->id;
+        $url = self::BASE_URL . '/' . $task->id;
         $response = $this->json('DELETE', $url);
 
         $response->assertStatus(204);
-        $this->assertFalse(Task::find($task->id));
+        $this->assertNull(Task::find($task->id));
     }
 }
