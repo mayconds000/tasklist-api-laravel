@@ -18,7 +18,6 @@ class CreateTaskTable extends Migration
             $table->string('title', 255);
             $table->enum('status', ['closed', 'open'])->default('open');
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 
